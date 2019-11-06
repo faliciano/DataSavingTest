@@ -7,36 +7,56 @@
     tools:context=".FileSaveDataActivity">
 
     <Button
-        android:id="@+id/button_file_write"
+        android:id="@+id/button_file_write_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="12dp"
-        android:text="写数据"
-        app:layout_constraintEnd_toStartOf="@+id/button_file_read"
-        app:layout_constraintHorizontal_bias="0.872"
+        android:text="写数据(内部)"
+        app:layout_constraintEnd_toStartOf="@+id/button_file_read_1"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button_file_read"
+        android:id="@+id/button_file_read_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="196dp"
-        android:text="读数据"
+        android:layout_marginEnd="172dp"
+        android:text="读数据(内部)"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView_file_console"
-        android:layout_width="371dp"
-        android:layout_height="605dp"
-        android:layout_marginTop="28dp"
+        android:layout_width="381dp"
+        android:layout_height="536dp"
+        android:layout_marginTop="16dp"
         android:text="无"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_file_write"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/button_file_read_2" />
+
+    <Button
+        android:id="@+id/button_file_write_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="写数据(外部)"
+        app:layout_constraintEnd_toStartOf="@+id/button_file_read_2"
+        app:layout_constraintHorizontal_bias="0.612"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_file_write_1" />
+
+    <Button
+        android:id="@+id/button_file_read_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="172dp"
+        android:text="读数据(外部)"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_file_read_1" />
 </androidx.constraintlayout.widget.ConstraintLayout>

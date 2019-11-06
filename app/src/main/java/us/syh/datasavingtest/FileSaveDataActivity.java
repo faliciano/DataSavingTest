@@ -4,13 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.security.keystore.KeyGenParameterSpec;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -31,7 +29,7 @@ public class FileSaveDataActivity extends AppCompatActivity {
 
         //文件被写入app内部储存
         final String filename="data.txt";
-        findViewById(R.id.button_file_write).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.button_file_write_1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SimpleDateFormat sdf = new SimpleDateFormat();// 格式化时间
@@ -52,7 +50,7 @@ public class FileSaveDataActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.button_file_read).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.button_file_read_1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FileInputStream inputStream;
@@ -73,6 +71,20 @@ public class FileSaveDataActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+
+        findViewById(R.id.button_file_write_2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //
+            }
+        });
+
+        findViewById(R.id.button_file_read_2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //
             }
         });
     }
