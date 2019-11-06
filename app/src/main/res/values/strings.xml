@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">DataSavingTest</string>
+    <string name="title_activity_multi_shared_preference">MultiSharedPreferenceActivity</string>
+</resources>
