@@ -8,15 +8,13 @@
 
     <TextView
         android:id="@+id/textView_console_one"
-        android:layout_width="416dp"
-        android:layout_height="670dp"
+        android:layout_width="390dp"
+        android:layout_height="256dp"
+        android:layout_marginTop="36dp"
         android:text="无"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_write_one"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/button_read_one" />
 
     <Button
         android:id="@+id/button_write_one"
