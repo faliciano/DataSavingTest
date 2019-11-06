@@ -7,11 +7,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -42,7 +45,7 @@ public class FileSaveDataActivity extends AppCompatActivity {
                 SimpleDateFormat sdf = new SimpleDateFormat();// 格式化时间
                 sdf.applyPattern("yyyy-MM-dd HH:mm:ss a");// a为am/pm的标记
                 Date date = new Date();// 获取当前时间
-                String string="Hello world，"+sdf.format(date)+"\n";
+                String string="From Internal:\n"+"Hello world，"+sdf.format(date)+"\n";
                 //在内部目录创建文件
                 //File file=new File(getApplicationContext().getFilesDir(),filename);
                 FileOutputStream outputStream;
@@ -85,7 +88,27 @@ public class FileSaveDataActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 verifyStoragePermissions(FileSaveDataActivity.this);
-                //
+                if(isExternalStorageWritable()){
+                    SimpleDateFormat sdf = new SimpleDateFormat();// 格式化时间
+                    sdf.applyPattern("yyyy-MM-dd HH:mm:ss a");// a为am/pm的标记
+                    Date date = new Date();// 获取当前时间
+                    String string="From External:\n"+"Hello world，"+sdf.format(date)+"\n";
+                    try{
+                        //保存在手机储存DataSavingTest目录下
+                        File file=new File(Environment.getRootDirectory()+"/DataSavingTest/data.txt");
+                        if(!file.exists()){
+                            File dir=new File(file.getParent());
+                            dir.mkdirs();
+                            file.createNewFile();
+                        }
+                        FileOutputStream outputStream=new FileOutputStream(file);
+                        outputStream.write(string.getBytes());
+                        outputStream.close();
+                        Toast.makeText(FileSaveDataActivity.this,"写入完成",Toast.LENGTH_LONG).show();
+                    }catch(Exception e){
+                        e.printStackTrace();
+                    }
+                }
             }
         });
 
@@ -93,7 +116,24 @@ public class FileSaveDataActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 verifyStoragePermissions(FileSaveDataActivity.this);
-                //
+                if(isExternalStorageReadable()){
+                    try{
+                        File file=new File(Environment.getRootDirectory()+"/DataSavingTest/data.txt");
+                        FileInputStream inputStream=new FileInputStream(file);
+                        ByteArrayOutputStream stream=new ByteArrayOutputStream();
+                        byte[] buffer=new byte[1024];
+                        int length=-1;
+                        while((length=inputStream.read(buffer))!=-1){
+                            stream.write(buffer,0,length);
+                        }
+                        stream.close();
+                        inputStream.close();
+                        textview_file_console.setText(stream.toString());
+                        Toast.makeText(FileSaveDataActivity.this,"读取完成",Toast.LENGTH_LONG).show();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
             }
         });
     }
@@ -110,4 +150,24 @@ public class FileSaveDataActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+    //验证储存可用
+    /* Checks if external storage is available for read and write */
+    public boolean isExternalStorageWritable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+            return true;
+        }
+        return false;
+    }
+
+    /* Checks if external storage is available to at least read */
+    public boolean isExternalStorageReadable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state) ||
+                Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
+            return true;
+        }
+        return false;
+    }
+
 }
