@@ -25,6 +25,7 @@ public class FileSaveDataActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file_save_data);
+        this.setTitle("文件保存数据");
 
         textview_file_console=findViewById(R.id.textView_file_console);
 
