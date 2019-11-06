@@ -1,5 +1,6 @@
 package us.syh.datasavingtest;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -53,7 +54,7 @@ public class FileSaveDataActivity extends AppCompatActivity {
                     outputStream=openFileOutput(filename, Context.MODE_PRIVATE);//MODE类型(!)[append:追加,private:覆盖写入]
                     outputStream.write(string.getBytes());
                     outputStream.close();
-                    Toast.makeText(FileSaveDataActivity.this,"写入完成",Toast.LENGTH_LONG).show();
+                    Toast.makeText(FileSaveDataActivity.this,"From Internal:\n"+"写入完成",Toast.LENGTH_LONG).show();
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -75,7 +76,7 @@ public class FileSaveDataActivity extends AppCompatActivity {
                     stream.close();
                     inputStream.close();
                     textview_file_console.setText(stream.toString());
-                    Toast.makeText(FileSaveDataActivity.this,"读取完成",Toast.LENGTH_LONG).show();
+                    Toast.makeText(FileSaveDataActivity.this,"From Internal:\n"+"读取完成",Toast.LENGTH_LONG).show();
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
@@ -93,9 +94,9 @@ public class FileSaveDataActivity extends AppCompatActivity {
                     sdf.applyPattern("yyyy-MM-dd HH:mm:ss a");// a为am/pm的标记
                     Date date = new Date();// 获取当前时间
                     String string="From External:\n"+"Hello world，"+sdf.format(date)+"\n";
+                    File file=new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)+"/DataSavingTest/data.txt");
                     try{
                         //保存在手机储存DataSavingTest目录下
-                        File file=new File(Environment.getRootDirectory()+"/DataSavingTest/data.txt");
                         if(!file.exists()){
                             File dir=new File(file.getParent());
                             dir.mkdirs();
@@ -104,7 +105,7 @@ public class FileSaveDataActivity extends AppCompatActivity {
                         FileOutputStream outputStream=new FileOutputStream(file);
                         outputStream.write(string.getBytes());
                         outputStream.close();
-                        Toast.makeText(FileSaveDataActivity.this,"写入完成",Toast.LENGTH_LONG).show();
+                        Toast.makeText(FileSaveDataActivity.this,"From External:\n"+"写入完成",Toast.LENGTH_LONG).show();
                     }catch(Exception e){
                         e.printStackTrace();
                     }
@@ -118,7 +119,7 @@ public class FileSaveDataActivity extends AppCompatActivity {
                 verifyStoragePermissions(FileSaveDataActivity.this);
                 if(isExternalStorageReadable()){
                     try{
-                        File file=new File(Environment.getRootDirectory()+"/DataSavingTest/data.txt");
+                        File file=new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)+"/DataSavingTest/data.txt");
                         FileInputStream inputStream=new FileInputStream(file);
                         ByteArrayOutputStream stream=new ByteArrayOutputStream();
                         byte[] buffer=new byte[1024];
@@ -129,7 +130,7 @@ public class FileSaveDataActivity extends AppCompatActivity {
                         stream.close();
                         inputStream.close();
                         textview_file_console.setText(stream.toString());
-                        Toast.makeText(FileSaveDataActivity.this,"读取完成",Toast.LENGTH_LONG).show();
+                        Toast.makeText(FileSaveDataActivity.this,"From External:\n"+"读取完成",Toast.LENGTH_LONG).show();
                     }catch (Exception e){
                         e.printStackTrace();
                     }
@@ -148,6 +149,16 @@ public class FileSaveDataActivity extends AppCompatActivity {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,@NonNull int[] grantResults){
+        super.onRequestPermissionsResult(requestCode,permissions,grantResults);
+        if(requestCode == REQUEST_EXTERNAL_STORAGE){
+            for(int i=0;i<permissions.length;i++){
+                Toast.makeText(FileSaveDataActivity.this,permissions[i]+",申请通过!",Toast.LENGTH_LONG).show();
+            }
         }
     }
     //验证储存可用
