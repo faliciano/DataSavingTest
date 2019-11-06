@@ -17,7 +17,7 @@ public class OneSavePreferenceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_one_save_preference);
-        this.setTitle("方法一，单SharedPreference");
+        this.setTitle("方法二，单SharedPreference");
         //一个acitivty仅需要一个sharedpreference时可通过以下方法省略sharedpreference文件名
         final SharedPreferences sharedPref=this.getPreferences(Context.MODE_PRIVATE);
         //写数据
