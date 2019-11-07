@@ -1,6 +1,7 @@
 package us.syh.datasavingtest.RoomDatabaseClass;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -15,7 +16,10 @@ public class UserupdateThread  extends Thread {
     public void run(){
         AppDatabase mdb=AppDatabase.getAppDatabase(context);
         UserEntity one=mdb.userDao().getOne();
-        mdb.userDao().getUser(one.uid).setFirstName(firstName);
-        mdb.userDao().getUser(one.uid).setLastName(lastName);
+        one.setFirstName(firstName);
+        one.setLastName(lastName);
+        mdb.userDao().updateUser(one);
+        //mdb.userDao().getUser(one.uid).setFirstName(firstName);
+        //mdb.userDao().getUser(one.uid).setLastName(lastName);
     }
 }
