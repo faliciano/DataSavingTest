@@ -12,6 +12,12 @@ public interface UserDao {
     @Query("SELECT * FROM user")
     List<UserEntity> getAll();
 
+    @Query("SELECT * FROM user LIMIT 1")
+    UserEntity getOne();
+
+    @Query("SELECT * FROM user WHERE uid = :uid LIMIT 1")
+    UserEntity getUser(int uid);
+
     @Query("SELECT * FROM user WHERE uid IN (:userIds)")
     List<UserEntity> loadAllByIds(int[] userIds);
 
